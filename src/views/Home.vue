@@ -13,7 +13,7 @@
       </div>
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col" v-for="item in attractions" :key="item.ID">
-          <div class="card">
+          <div class="card h-100">
             <img
               src="../assets/img/test.png"
               class="card-img-top"
@@ -26,15 +26,17 @@
               class="card-img-top"
               alt="attractions-img"
             />
-            <div class="card-body p-0">
-              <div class="card-title">
-                <h3>{{ item.Name }}</h3>
-                <span v-if="item.OpenTime.length < 10"
-                  ><i class="far fa-clock"></i>{{ item.OpenTime }}</span
-                >
-                <span v-else><i class="far fa-clock"></i>詳見官網</span>
-              </div>
-              <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{ item.Address }}</p>
+            <div class="card-body">
+              <h3>{{ item.Name }}</h3>
+              <span v-if="item.OpenTime.length < 10"
+                ><i class="far fa-clock"></i>開放時間 : {{ item.OpenTime }}</span
+              >
+              <span v-else><i class="far fa-clock"></i>開放時間 : 詳見官網</span>
+              <p><i class="fas fa-map-marker-alt"></i>{{ item.Address }}</p>
+              <p v-if="Phone in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
+              <p v-else><i class="fas fa-phone"></i>電話 : 詳見官網</p>
+            </div>
+            <div class="card-footer">
               <div class="card-btn"><button type="button">了解更多</button></div>
             </div>
           </div>
@@ -51,28 +53,21 @@
       </div>
       <div class="row row-cols-1 row-cols-md-4 g-4">
         <div class="col" v-for="item in activity" :key="item.ID">
-          <div class="card">
+          <div class="card h-100">
             <img
               src="../assets/img/test.png"
               class="card-img-top"
               v-if="JSON.stringify(item.Picture) === '{}'"
               alt="activity-img"
             />
-            <img
-              :src="item.Picture.PictureUrl1"
-              v-else
-              class="card-img-top"
-              alt="activity-img"
-            />
-            <div class="card-body p-0">
-              <div class="card-title">
-                <h3>{{ item.Name }}</h3>
-                <!-- <span v-if="item.OpenTime.length < 10"
-                  ><i class="far fa-clock"></i>{{ item.OpenTime }}</span
-                >
-                <span v-else><i class="far fa-clock"></i>電話詢問</span> -->
-              </div>
-              <p class="card-text"><i class="fas fa-map-marker-alt"></i>{{ item.Location }}</p>
+            <img :src="item.Picture.PictureUrl1" v-else class="card-img-top" alt="activity-img" />
+            <div class="card-body">
+              <h3>{{ item.Name }}</h3>
+              <p><i class="fas fa-map-marker-alt"></i>{{ item.Location }}</p>
+              <p v-if="'Phone' in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
+              <p v-else><i class="fas fa-phone"></i>電話 : 詳見官網</p>
+            </div>
+            <div class="card-footer">
               <div class="card-btn"><button type="button">了解更多</button></div>
             </div>
           </div>
