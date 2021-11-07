@@ -162,6 +162,7 @@ export default {
   color: #ffffff;
   border: none;
   margin-left: 20px;
+  transition: all .3s;
 }
 .options .options-tool button:hover {
   color: #08a6bb;

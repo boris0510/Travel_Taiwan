@@ -51,6 +51,7 @@
   font-size: 20px;
   text-decoration: none;
   color: #525151;
+  transition: all .3s;
 }
 .navbar .list ul a.active {
   font-weight: 700;
