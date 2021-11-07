@@ -1,15 +1,15 @@
 <template>
   <nav class="navbar">
     <div class="container">
-      <div class="logo">
+      <a href="#" to="/" class="logo">
         <img src="@/assets/img/logo.png" alt="logo" />
         <h1>Travel Taiwan</h1>
-      </div>
+      </a>
       <div class="list">
         <ul>
-          <li><a href="#" class="active">首頁</a></li>
-          <li><a href="#">景點導覽</a></li>
-          <li><a href="#">觀光活動</a></li>
+          <li><router-link to="/">首頁</router-link></li>
+          <li><router-link to="/attractions">景點導覽</router-link></li>
+          <li><router-link to="/activity">觀光活動</router-link></li>
         </ul>
       </div>
     </div>
@@ -17,7 +17,7 @@
 </template>
 
 <style scoped>
-.container{
+.container {
   max-width: 1440px;
 }
 .navbar {
@@ -28,6 +28,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-decoration: none;
 }
 .navbar .logo img {
   margin-left: 76px;
@@ -51,14 +52,14 @@
   text-decoration: none;
   color: #525151;
 }
-.navbar .list ul a.active{
+.navbar .list ul a.active {
   font-weight: 700;
   color: #08a6bb;
 }
 .navbar .list ul a:hover {
   color: #08a6bb;
 }
-.navbar .list ul li{
+.navbar .list ul li {
   padding-right: 97px;
 }
 </style>
