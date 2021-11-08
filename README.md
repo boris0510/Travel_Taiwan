@@ -1,4 +1,4 @@
-# tw-travel
+# Travel Taiwan
 
 ## Project setup
 ```
