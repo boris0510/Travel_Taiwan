@@ -1,4 +1,5 @@
 <template>
+  <Loading :active="isLoading" />
   <div class="banner">
     <div
       id="carouselExampleIndicators"
@@ -53,16 +54,18 @@
         <h2>Welcome to Travel Taiwan</h2>
       </div>
       <div class="options-tool">
-        <select class="category" v-model="currentCategory">
-          <option value="" disabled>類別</option>
+        <select class="category" v-model="currentCategory" @change="goPath()">
+          <option value="">類別</option>
           <option value="attractions">景點導覽</option>
           <option value="activity">觀光活動</option>
         </select>
         <select class="city" v-model="currentCity">
-          <option value="" disabled>所有縣市</option>
-          <option :value="item.City" v-for="item in city" :key="item">{{ item.CityName }}</option>
+          <option value="">所有縣市</option>
+          <option :value="item.CityName" v-for="item in city" :key="item">
+            {{ item.CityName }}
+          </option>
         </select>
-        <button type="bitton"><i class="fas fa-search"></i></button>
+        <button type="button" @click="search"><i class="fas fa-search"></i></button>
       </div>
     </div>
   </div>
@@ -75,19 +78,40 @@ export default {
   data() {
     return {
       city: [],
-      currentCity: '',
       currentCategory: '',
+      currentCity: '',
+      current: {
+        category: '',
+        city: '',
+        cityEng: '',
+      },
+      isLoading: false,
     };
   },
   methods: {
     getData(url, dataName) {
+      this.isLoading = true;
       this.axios
         .get(url, {
           headers: getAuthorizationHeader(),
         })
         .then((response) => {
           this[dataName] = response.data;
+          this.isLoading = false;
         });
+    },
+    goPath() {
+      this.$router.push(`/${this.currentCategory}`);
+    },
+    search() {
+      this.current.category = this.currentCategory;
+      this.current.city = this.currentCity;
+      this.city.forEach((item) => {
+        if (item.CityName === this.currentCity) {
+          this.current.cityEng = item.City;
+        }
+      });
+      this.emitter.emit('sendData', this.current);
     },
   },
   mounted() {
@@ -162,7 +186,7 @@ export default {
   color: #ffffff;
   border: none;
   margin-left: 20px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .options .options-tool button:hover {
   color: #08a6bb;

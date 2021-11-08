@@ -1,7 +1,5 @@
 <template>
-  <GoTop />
-  <Navber />
-  <Banner />
+  <Loading :active="isLoading"/>
   <div class="container p-0">
     <div class="attractions">
       <div class="title">
@@ -33,7 +31,7 @@
               >
               <span v-else><i class="far fa-clock"></i>開放時間 : 詳見官網</span>
               <p><i class="fas fa-map-marker-alt"></i>{{ item.Address }}</p>
-              <p v-if="Phone in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
+              <p v-if="'Phone' in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
               <p v-else><i class="fas fa-phone"></i>電話 : 詳見官網</p>
             </div>
             <div class="card-footer">
@@ -86,50 +84,36 @@
       </div>
     </div>
   </div>
-  <Footer />
 </template>
 
 <script>
 import getAuthorizationHeader from '../tools/AuthorizationHeader';
-import Navber from '@/components/Navber.vue';
-import Banner from '@/components/Banner.vue';
-import Footer from '@/components/Footer.vue';
-import GoTop from '@/components/GoTop.vue';
 
 export default {
   name: 'Home',
-  components: {
-    Navber,
-    Banner,
-    Footer,
-    GoTop,
-  },
   data() {
     return {
       attractions: [],
       activity: [],
+      isLoading: false,
     };
   },
   methods: {
     getData(url, dataName) {
+      this.isLoading = true;
       this.axios
         .get(url, {
           headers: getAuthorizationHeader(),
         })
         .then((response) => {
           this[dataName] = response.data;
+          this.isLoading = false;
         });
     },
   },
   mounted() {
-    this.getData(
-      'https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=8&$format=JSON',
-      'attractions',
-    );
-    this.getData(
-      'https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity?$top=8&$format=JSON',
-      'activity',
-    );
+    this.getData('https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot?$top=8&$format=JSON', 'attractions');
+    this.getData('https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity?$top=8&$format=JSON', 'activity');
   },
 };
 </script>
