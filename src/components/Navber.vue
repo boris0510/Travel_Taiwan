@@ -51,7 +51,7 @@
   font-size: 20px;
   text-decoration: none;
   color: #525151;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .navbar .list ul a.active {
   font-weight: 700;
@@ -62,5 +62,15 @@
 }
 .navbar .list ul li {
   padding-right: 97px;
+}
+@media (max-width: 768px) {
+  .navbar .list ul li {
+    padding-right: 40px;
+  }
+}
+@media (max-width: 420px) {
+  .list {
+    display: none;
+  }
 }
 </style>

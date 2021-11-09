@@ -111,6 +111,13 @@ export default {
           this.current.cityEng = item.City;
         }
       });
+      if (this.currentCategory === 'attractions') {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/ScenicSpot/${this.current.cityEng}?$format=JSON`;
+        this.emitter.emit('sendUrl', url);
+      } else {
+        const url = `https://ptx.transportdata.tw/MOTC/v2/Tourism/Activity/${this.current.cityEng}?$format=JSON`;
+        this.emitter.emit('sendUrl', url);
+      }
       this.emitter.emit('sendData', this.current);
     },
   },
@@ -191,5 +198,22 @@ export default {
 .options .options-tool button:hover {
   color: #08a6bb;
   background: #ffffff;
+}
+@media (max-width: 768px) {
+  .carousel-indicators {
+    margin-bottom: 10px;
+  }
+  .options-tool {
+    width: 300px;
+  }
+  .options .options-tool .category{
+    width: 107px;
+  }
+  .options .options-tool .city {
+    width: 175px;
+  }
+  .options .options-title h2 {
+    font-size: 26px;
+  }
 }
 </style>

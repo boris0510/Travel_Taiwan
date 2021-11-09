@@ -62,3 +62,8 @@
   color: #ffffff;
   background-color: #08a6bb;
 }
+@media (max-width: 768px) {
+  .card .card-btn button{
+    width: 130px;
+  }
+}
