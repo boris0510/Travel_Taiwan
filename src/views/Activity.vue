@@ -27,7 +27,7 @@
             <p v-if="'Phone' in item"><i class="fas fa-phone"></i>{{ item.Phone }}</p>
           </div>
           <div class="card-footer">
-            <div class="card-btn"><button type="button">了解更多</button></div>
+            <div class="card-btn"><button type="button" @click="openModal(item)">了解更多</button></div>
           </div>
         </div>
       </div>
@@ -51,10 +51,12 @@
       </ul>
     </nav>
   </div>
+  <Modal ref="Modal" :data="tempData" />
 </template>
 
 <script>
 import getAuthorizationHeader from '../tools/AuthorizationHeader';
+import Modal from '../components/Modal.vue';
 
 export default {
   name: 'Activity',
@@ -68,6 +70,7 @@ export default {
       },
       currentPage: 0,
       isLoading: false,
+      tempData: {},
     };
   },
   computed: {
@@ -83,6 +86,9 @@ export default {
       return newData;
     },
   },
+  components: {
+    Modal,
+  },
   methods: {
     getData(url, dataName) {
       this.isLoading = true;
@@ -94,6 +100,10 @@ export default {
           this[dataName] = response.data;
           this.isLoading = false;
         });
+    },
+    openModal(item) {
+      this.tempData = { ...item };
+      this.$refs.Modal.showModal();
     },
   },
   mounted() {

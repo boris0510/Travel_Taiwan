@@ -28,7 +28,9 @@
               <p v-if="'Phone' in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
             </div>
             <div class="card-footer">
-              <div class="card-btn"><button type="button">了解更多</button></div>
+              <div class="card-btn">
+                <button type="button" @click="openModal(item)">了解更多</button>
+              </div>
             </div>
           </div>
         </div>
@@ -60,7 +62,9 @@
               <p v-if="'Phone' in item"><i class="fas fa-phone"></i>電話 : {{ item.Phone }}</p>
             </div>
             <div class="card-footer">
-              <div class="card-btn"><button type="button">了解更多</button></div>
+              <div class="card-btn">
+                <button type="button" @click="openModal(item)">了解更多</button>
+              </div>
             </div>
           </div>
         </div>
@@ -78,10 +82,12 @@
       </div>
     </div>
   </div>
+  <Modal ref="Modal" :data="tempData" />
 </template>
 
 <script>
 import getAuthorizationHeader from '../tools/AuthorizationHeader';
+import Modal from '../components/Modal.vue';
 
 export default {
   name: 'Home',
@@ -90,7 +96,11 @@ export default {
       attractions: [],
       activity: [],
       isLoading: false,
+      tempData: {},
     };
+  },
+  components: {
+    Modal,
   },
   methods: {
     getData(url, dataName) {
@@ -103,6 +113,10 @@ export default {
           this[dataName] = response.data;
           this.isLoading = false;
         });
+    },
+    openModal(item) {
+      this.tempData = { ...item };
+      this.$refs.Modal.showModal();
     },
   },
   mounted() {
@@ -122,7 +136,7 @@ export default {
 .container {
   max-width: 1440px;
 }
-.attractions{
+.attractions {
   margin-bottom: 150px;
 }
 .title {
@@ -163,7 +177,7 @@ export default {
   margin: 0;
 }
 @media (max-width: 768px) {
-  .bottom-banner .bottom-banner-txt p{
+  .bottom-banner .bottom-banner-txt p {
     font-size: 24px;
   }
 }
