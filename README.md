@@ -1,7 +1,7 @@
 # Travel_Taiwan
 
 # Demo
-https://boris0510.github.io/Travel_Taiwan/
+https://boris0510.github.io/Travel_Taiwan/#/
 
 ## Introduction
 * 使用 Vue3 實作臺灣旅遊景點導覽網站，串接 TDX 運輸資料流通服務 API。
